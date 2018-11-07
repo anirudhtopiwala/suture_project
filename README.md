@@ -18,3 +18,8 @@ make new image
 
 repeat
 
+
+
+## Tuning Params
+Play with the value of MinQuality in detectharris features to change the number of points being generated. The values should be between [0, 1]. Higher values means lesser points.
+
