@@ -1,6 +1,0 @@
-function [coeffs] = calc(edge_left, edge_right)
-)
-x = [edge_left(1) edge_right(1);
-%y = [edge_left(2) edge_right(2)];
-coefs = polyfit(x,y,1);
-end
