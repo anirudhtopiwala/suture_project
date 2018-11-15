@@ -1,4 +1,4 @@
-clc;clear all; close all;
+function [edge_left,edge_right] = detect_vertices()
 main = imread('pic.jpg');
 main_bw=im2bw(main);
 se = strel('line',4,4);
@@ -15,10 +15,13 @@ s = regionprops(main_bw,{...
     'Orientation'});
 figure
 imshow(main_edge);
-C = detectHarrisFeatures(main_edge,'MinQuality',0.5);
-c= C.Location;
 hold on
 plot(s.Centroid(1),s.Centroid(2),'r*');
-egde_left(2)=(s.MajorAxisLength*0.5+s.Centroid(1))
-egde_left(1)=(s.MinorAxisLength*0.5+s.Centroid(2))\\
-plot(egde_left(1),egde_left(2),'r*');
+edge_right(1)=(s.Centroid(1)+sind(s.Orientation)*s.MajorAxisLength/4);
+edge_right(2)=s.Centroid(2)+cosd(s.Orientation)*s.MajorAxisLength/4;
+edge_left(1)=(s.Centroid(1)-sind(s.Orientation)*s.MajorAxisLength/4);
+edge_left(2)=s.Centroid(2)+cosd(s.Orientation)*s.MajorAxisLength/4;
+hold on
+plot(edge_right(1),edge_right(2),'g*');
+plot(edge_left(1),edge_left(2),'b*');
+end
