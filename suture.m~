@@ -4,10 +4,21 @@ main_bw=im2bw(main);
 se = strel('line',4,4);
 main_bw = imerode(main_bw,se);
 main_edge = edge(main_bw,'sobel');
+main_edge=bwmorph(main_edge,'thicken');
 main_edge =imfill( main_edge, 'holes' );
+main_edge=bwmorph(main_edge,'thicken');
+main_edge =imfill( main_edge, 'holes' );
+s = regionprops(main_bw,{...
+    'Centroid',...
+    'MajorAxisLength',...
+    'MinorAxisLength',...
+    'Orientation'});
 figure
 imshow(main_edge);
-C = detectHarrisFeatures(main_edge,'MinQuality',0.1);
+C = detectHarrisFeatures(main_edge,'MinQuality',0.5);
 c= C.Location;
 hold on
-plot(c(:,1),c(:,2),'r*');
+plot(s.Centroid(1),s.Centroid(2),'r*');
+egde_left(2)=(s.MajorAxisLength*0.5+s.Centroid(1))
+egde_left(1)=(s.MinorAxisLength*0.5+s.Centroid(2))\\
+plot(egde_left(1),egde_left(2),'r*');
